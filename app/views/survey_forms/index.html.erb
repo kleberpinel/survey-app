@@ -1,0 +1,36 @@
+
+
+<div class="container"> 
+  <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder, :separator => "&raquo;" %>
+  <div class="well well-lg center" >
+    <h3><span class="label label-default">Lista</span> Pesquisa interativa</h3>
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Titulo</th>
+          <th>Solicitante</th>
+          <th>Respostas</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @survey_forms.each do |survey_form| %>
+          <tr>
+            <td><%= link_to survey_form.title, survey_form, :style => "background-color: transparent;" %></td>
+            <td><%= survey_form.user %></td>
+            <td><%= survey_form.responses %></td>
+            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-edit"), edit_survey_form_path(survey_form), :style=>"background-color: transparent;" %></td>
+            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), survey_form, method: :delete, data: { confirm: 'Are you sure?' }, :style=>"background-color: transparent;"  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+     <%= button_to 'Nova', new_survey_form_path, :class => "btn btn-large btn-primary", :method => "get" %> 
+  </div>
+
+</div>
