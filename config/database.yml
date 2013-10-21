@@ -26,5 +26,4 @@ production:
   encoding: unicode
   database: survey
   pool: 5
-  username: postgres
   password: 
