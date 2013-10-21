@@ -1,6 +1,8 @@
 class SurveyFormsController < ApplicationController
   before_action :set_survey_form, only: [:show, :edit, :update, :destroy]
 
+  before_filter :authenticate_user!, only: [:edit, :update, :destroy]
+
   add_breadcrumb "Home", :root_path
   add_breadcrumb "Pesquisa interativa", :survey_forms_path 
 
@@ -28,7 +30,8 @@ class SurveyFormsController < ApplicationController
   # POST /survey_forms.json
   def create
     @survey_form = SurveyForm.new(survey_form_params)
-    @survey_form.responses = 0;
+    @survey_form.responses = 0
+    @survey_form.user = current_user
 
     respond_to do |format|
       if @survey_form.save

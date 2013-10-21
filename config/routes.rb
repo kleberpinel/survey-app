@@ -1,8 +1,8 @@
 Survey::Application.routes.draw do
   resources :survey_forms
 
-  devise_for :users
-  resources :users, only: [:show, :edit, :update]
+  devise_for :users, :path_prefix => 'my'
+  resources :users
   
   get "home/index"
   

@@ -1,9 +1,9 @@
-<%= form_for(@survey_form, :html => {:class => 'form-horizontal'}) do |f| %>
-  <% if @survey_form.errors.any? %>
+<%= form_for(@user, :html => {:class => 'form-horizontal'}) do |f| %>
+  <% if @user.errors.any? %>
     
     <div class="alert alert-danger">
       <h2>Problemas na solicitação!</h2>
-       <% @survey_form.errors.full_messages.each do |msg| %>
+       <% @user.errors.full_messages.each do |msg| %>
         <ul><%= msg %></ul>
       <% end %>
     </div>
@@ -11,17 +11,19 @@
 
 
   <div class="form-group">
-    <%= f.label :title, :class => "col-lg-2 control-label"%>
+    <%= f.label :email, :class => "col-lg-2 control-label"%>
     <div class="col-lg-10">
-      <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Titulo"%>
+      <%= f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email"%>
     </div>
   </div>
   
+ 
+
   <div class="form-group">
 
     <div class="col-lg-offset-2 col-lg-10">
       <div class="row">
-        <div class="col-md-6"><%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, survey_forms_path %></div>
+        <div class="col-md-6"><%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, users_path %></div>
         <div class="col-md-6" style="text-align: right"><%= f.submit :class=>"btn btn-success", :value=>"Salvar"%></div>
       </div>
     </div

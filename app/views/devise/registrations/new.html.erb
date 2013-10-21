@@ -16,22 +16,22 @@
 			  </div>
 
 			  <div class="form-group">
-			    <%= f.label :password, :class => "col-lg-2 control-label"%>
+			    <%= f.label "Senha", :class => "col-lg-2 control-label"%>
 			    <div class="col-lg-10">
-			      <%= f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"%>
+			      <%= f.password_field :password, :class => "form-control", :placeholder => "Password"%>
 			    </div>
 			  </div>
 
 			  <div class="form-group">
-			    <%= f.label :password_confirmation, :class => "col-lg-2 control-label"%>
+			    <%= f.label "Confirmação senha", :class => "col-lg-2 control-label"%>
 			    <div class="col-lg-10">
-			      <%= f.password_field :password_confirmation, :autofocus => true, :class => "form-control", :placeholder => "Password Confirmation"%>
+			      <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Password Confirmation"%>
 			    </div>
 			  </div>
 
 			  <div class="form-group">
 			    <div class="col-lg-offset-2 col-lg-10">
-			      <button type="submit" class="btn btn-default">Sign up</button>
+			      <button type="submit" class="btn btn-success">Cadastrar</button>
 			    </div>
 			  </div>
 			<% end %>

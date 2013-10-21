@@ -1,0 +1,32 @@
+
+
+<div class="container"> 
+  <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder, :separator => "&raquo;" %>
+  <div class="well well-lg center" >
+    <h3><span class="label label-default">Lista</span> Usuário</h3>
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.email, user, :style => "background-color: transparent; color: black" %></td>
+            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-edit"), edit_user_path(user), :style=>"background-color: transparent; color: black" %></td>
+            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), user, method: :delete, data: { confirm: 'Are you sure?' }, :style=>"background-color: transparent; color: black"  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+     <%= button_to 'Nova', new_user_path, :class => "btn btn-large btn-primary", :method => "get" %> 
+  </div>
+
+</div>
