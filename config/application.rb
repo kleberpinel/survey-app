@@ -23,10 +23,6 @@ module Survey
     config.autoload_paths += Dir["#{config.root}/lib/"]
     
     config.action_controller.include_all_helpers = false
-
-    config.assets.paths << "#{Rails}/vendor/assets/fonts"
-
-    config.assets.initialize_on_precompile = false
     
     config.i18n.default_locale = :'pt-BR'
 
