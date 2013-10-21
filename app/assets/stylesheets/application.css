@@ -10,8 +10,6 @@
  *
  *= require_self
  *= require_tree .
- *= require bootstrap.min
- *= require bootstrap-theme.min
- *= require font-awesome
+ *= require  custom_bootstrap/custom_bootstrap
  *= require social_buttons.css
  */
