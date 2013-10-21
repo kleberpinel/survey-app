@@ -8,8 +8,6 @@ development:
   encoding: unicode
   database: survey
   pool: 5
-  port: 5433
-  username: postgres
   password: root
 
 # Warning: The database defined as "test" will be erased and
@@ -21,7 +19,7 @@ test:
   database: survey
   pool: 5
   username: postgres
-  password: root
+  password: 
 
 production:
   adapter: postgresql
@@ -29,4 +27,4 @@ production:
   database: survey
   pool: 5
   username: postgres
-  password: root
+  password: 
