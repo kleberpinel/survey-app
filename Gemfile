@@ -15,6 +15,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'therubyracer'
 gem "less-rails-bootstrap"
 gem "font-awesome-rails"
+gem 'mustache-js-rails'
 
 gem "breadcrumbs_on_rails"
 

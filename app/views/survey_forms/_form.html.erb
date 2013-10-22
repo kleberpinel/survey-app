@@ -9,16 +9,185 @@
     </div>
   <% end %>
 
+  <dl class="dl-horizontal">
+    <dt>Solicitante</dt>
+    <dd><%= current_user.email %></dd>
+  </dl>
 
   <div class="form-group">
-    <%= f.label :title, :class => "col-lg-2 control-label"%>
+    <%= f.label "Titulo", :class => "col-lg-2 control-label"%>
     <div class="col-lg-10">
-      <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Titulo"%>
+      <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Titulo da sua pesquisa"%>
     </div>
   </div>
+
+  <div class="form-group">
+    <%= f.label "Descritivo", :class => "col-lg-2 control-label"%>
+    <div class="col-lg-10">
+      <%= f.text_area :title, :class => "form-control", :placeholder => "Aqui vem um texto descritivo de introdução ao formulário onde pode ser explicado todo o contexto da pesquisa."%>
+    </div>
+  </div>
+
+  <div id="campos" class="form-group" style="display: none"></div>
+ 
+  <div class="form-group">
+    <%= f.label "Adicionar campo do tipo", :class => "col-lg-2 control-label"%>
+    <div class="col-lg-10">
+     <%= f.select :type_list, options_for_select(SurveyType.types.collect{|p| [ p.label, p.id ] }), {prompt: "Selecione um tipo de campo"}, 
+      {:class =>  "form-control", :onChange => 'addFieldType(this.value)' } %>
+    </div>
+  </div>
+
+  <script id="combobox_fields_Tpl" type="text/template">
+    <div class="form-group">
+      <%= f.label "Valor {{index}}", :class => "col-lg-2 control-label"%>
+      <div class="col-lg-10">
+        <input type="text" id="valor_{{index}}_{{father}}" name="field1_valor_{{index}}" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" />
+      </div>
+    </div>
+  </script>
+
+  <script id="comboboxTpl" type="text/template">
+    <div id="field{{index}}" class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-2"><h3 class="panel-title">Campo ComboBox</h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer">Remover</span></div>
+          <div class="col-md-10">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Pré visualisação</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <%= f.label "Enunciado", :id=> "enunciado_{{index}}_pv", :class => "col-lg-2 control-label"%>
+                  <div class="col-lg-10">
+                   <%= f.select :type_list, options_for_select([]), {prompt: "Selecione uma alternativa"},
+                    {:class =>  "form-control",  :id => "cb_{{index}}_pv"} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <%= f.label "Enunciado", :class => "col-lg-2 control-label"%>
+          <div class="col-lg-10">
+            <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Enunciado", :id => "enunciado_{{index}}", :onFocusOut => "changeEnunciado(this)"%>
+          </div>
+        </div>
+        <div id="values_field_{{index}}_div"></div>
+        <div class="row">
+          <div class="col-md-2">&nbsp;</div>
+          <div class="col-md-10"> <span onclick="addValueComboBox('values_field_{{index}}',{{index}})"  style="cursor: pointer">Adicionar Valor</span></div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+   <script id="textTpl" type="text/template">
+    <div id="field{{index}}" class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-2"><h3 class="panel-title">Campo Text</h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer">Remover</span></div>
+          <div class="col-md-10">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Pré visualisação</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <%= f.label "Enunciado", :id=> "enunciado_{{index}}_pv", :class => "col-lg-4  control-label"%>
+                  <div class="col-lg-5">
+                   <%= f.text_field :type_list, :class =>  "form-control",  :id => "cb_{{index}}_pv" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+         <div class="form-group">
+            <%= f.label "Enunciado", :class => "col-lg-2 control-label"%>
+            <div class="col-lg-10">
+              <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Enunciado", :id => "enunciado_{{index}}"  , :onFocusOut => "changeEnunciado(this)"%>
+            </div>
+          </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/javascript">
+    var conter = 0;
+    function addFieldType(value){
+      data = {index:conter};
+
+      if(value == "1"){
+      var template = $('#textTpl').html();
+        var html = Mustache.to_html(template, data);
+        $("#campos").append(html);
+        $("#campos").show();
+
+        $("#survey_form_type_list").val("");
+        conter ++;
+        
+      } else if(value == "2"){
+        var template = $('#comboboxTpl').html();
+        var html = Mustache.to_html(template, data);
+        $("#campos").append(html);
+        $("#campos").show();
+
+        $("#survey_form_type_list").val("");
+        conter ++;
+      }
+    }
+    function removeFieldType(id){
+      console.log(id)
+      $("#"+id).html("");
+      $("#"+id).hide()
+    }
+
+    function changeEnunciado(obj){
+      console.log(obj.id);
+      $("#" + obj.id + "_pv").html(obj.value);
+    }
+
+    var conterComboBox = [];
+    function addValueComboBox(field,idFather){
+      valor = conterComboBox[field];
+      if(valor == undefined){
+        conterComboBox[field] = {index:1,father:idFather}
+      } else {
+        valor.index ++;
+        conterComboBox[field] = valor;
+      }
+      data = conterComboBox[field];
+
+      var template = $('#combobox_fields_Tpl').html();
+      var html = Mustache.to_html(template, data);
+      $("#" + field +  "_div").append(html);
+    }
+
+    function setValueComboBox(obj){
+      idItem = obj.id.split("_")[1];
+      idFather = obj.id.split("_")[2];  
+      if(obj.value == ""){
+        $("#cb_"+ idFather + "_pv option[value='"+idItem+"']").remove();
+      } else {
+        console.log($("#cb_"+ idFather + "_pv option[value='"+idItem+"']").length)
+        if($("#cb_"+ idFather + "_pv option[value='"+idItem+"']").length == 0){
+          $("#cb_"+ idFather + "_pv").append( new Option(obj.value,idItem));
+        } else {
+          $("#cb_"+ idFather + "_pv option[value='"+idItem+"']").text(obj.value);
+        } 
+      }
+      
+    }
+  </script>
   
   <div class="form-group">
-
     <div class="col-lg-offset-2 col-lg-10">
       <div class="row">
         <div class="col-md-6"><%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, survey_forms_path %></div>
