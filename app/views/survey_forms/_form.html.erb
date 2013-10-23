@@ -24,7 +24,7 @@
   <div class="form-group">
     <%= f.label "Descritivo", :class => "col-lg-2 control-label"%>
     <div class="col-lg-10">
-      <%= f.text_area :title, :class => "form-control", :placeholder => "Aqui vem um texto descritivo de introdução ao formulário onde pode ser explicado todo o contexto da pesquisa."%>
+      <%= f.text_area :description, :class => "form-control", :placeholder => "Aqui vem um texto descritivo de introdução ao formulário onde pode ser explicado todo o contexto da pesquisa."%>
     </div>
   </div>
 
@@ -37,95 +37,24 @@
       {:class =>  "form-control", :onChange => 'addFieldType(this.value)' } %>
     </div>
   </div>
-
-  <script id="combobox_fields_Tpl" type="text/template">
-    <div class="form-group">
-      <%= f.label "Valor {{index}}", :class => "col-lg-2 control-label"%>
-      <div class="col-lg-10">
-        <input type="text" id="valor_{{index}}_{{father}}" name="field1_valor_{{index}}" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" />
-      </div>
-    </div>
-  </script>
-
-  <script id="comboboxTpl" type="text/template">
-    <div id="field{{index}}" class="panel panel-default">
-      <div class="panel-heading">
-        <div class="row">
-          <div class="col-md-2"><h3 class="panel-title">Campo ComboBox</h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer">Remover</span></div>
-          <div class="col-md-10">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Pré visualisação</h3>
-              </div>
-              <div class="panel-body">
-                <div class="form-group">
-                  <%= f.label "Enunciado", :id=> "enunciado_{{index}}_pv", :class => "col-lg-2 control-label"%>
-                  <div class="col-lg-10">
-                   <%= f.select :type_list, options_for_select([]), {prompt: "Selecione uma alternativa"},
-                    {:class =>  "form-control",  :id => "cb_{{index}}_pv"} %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="form-group">
-          <%= f.label "Enunciado", :class => "col-lg-2 control-label"%>
-          <div class="col-lg-10">
-            <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Enunciado", :id => "enunciado_{{index}}", :onFocusOut => "changeEnunciado(this)"%>
-          </div>
-        </div>
-        <div id="values_field_{{index}}_div"></div>
-        <div class="row">
-          <div class="col-md-2">&nbsp;</div>
-          <div class="col-md-10"> <span onclick="addValueComboBox('values_field_{{index}}',{{index}})"  style="cursor: pointer">Adicionar Valor</span></div>
-        </div>
-      </div>
-    </div>
-  </script>
-
-   <script id="textTpl" type="text/template">
-    <div id="field{{index}}" class="panel panel-default">
-      <div class="panel-heading">
-        <div class="row">
-          <div class="col-md-2"><h3 class="panel-title">Campo Text</h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer">Remover</span></div>
-          <div class="col-md-10">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Pré visualisação</h3>
-              </div>
-              <div class="panel-body">
-                <div class="form-group">
-                  <%= f.label "Enunciado", :id=> "enunciado_{{index}}_pv", :class => "col-lg-4  control-label"%>
-                  <div class="col-lg-5">
-                   <%= f.text_field :type_list, :class =>  "form-control",  :id => "cb_{{index}}_pv" %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-body">
-         <div class="form-group">
-            <%= f.label "Enunciado", :class => "col-lg-2 control-label"%>
-            <div class="col-lg-10">
-              <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Enunciado", :id => "enunciado_{{index}}"  , :onFocusOut => "changeEnunciado(this)"%>
-            </div>
-          </div>
-      </div>
-    </div>
-  </script>
-
   <script type="text/javascript">
     var conter = 0;
+    var conterComboBox = [];
+  </script>
+
+  <%- if f.object.survey_fields.size > 0 %>
+    <%= render "edit_survey_templates", f: f %>
+  <% else %>
+    <%= render "new_survey_templates" %>
+  <% end %>
+
+  <script type="text/javascript">
+    
     function addFieldType(value){
       data = {index:conter};
-
+      //TextField
       if(value == "1"){
-      var template = $('#textTpl').html();
+        var template = $('#textTpl').html();
         var html = Mustache.to_html(template, data);
         $("#campos").append(html);
         $("#campos").show();
@@ -133,7 +62,9 @@
         $("#survey_form_type_list").val("");
         conter ++;
         
-      } else if(value == "2"){
+      } 
+      //ComboBox
+      else if(value == "2"){
         var template = $('#comboboxTpl').html();
         var html = Mustache.to_html(template, data);
         $("#campos").append(html);
@@ -147,6 +78,7 @@
       console.log(id)
       $("#"+id).html("");
       $("#"+id).hide()
+      conter --;
     }
 
     function changeEnunciado(obj){
@@ -154,8 +86,10 @@
       $("#" + obj.id + "_pv").html(obj.value);
     }
 
-    var conterComboBox = [];
+    
     function addValueComboBox(field,idFather){
+      console.log(field)
+
       valor = conterComboBox[field];
       if(valor == undefined){
         conterComboBox[field] = {index:1,father:idFather}
@@ -164,7 +98,6 @@
         conterComboBox[field] = valor;
       }
       data = conterComboBox[field];
-
       var template = $('#combobox_fields_Tpl').html();
       var html = Mustache.to_html(template, data);
       $("#" + field +  "_div").append(html);

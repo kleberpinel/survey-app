@@ -1,0 +1,75 @@
+<script id="comboboxTpl" type="text/template">
+  <div id="field{{index}}" class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-2"><h3 class="panel-title">Campo ComboBox</h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer">Remover</span></div>
+        <div class="col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Pré visualisação</h3>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label class="col-lg-2 control-label" id="enunciado_{{index}}_pv" for="survey_form_Enunciado">{{title}}</label>
+                <div class="col-lg-10">
+                  <select class="form-control" id="cb_{{index}}_pv" >
+                    <option value="">Selecione um tipo de campo</option>
+                     {{#survey_field_options}}
+                       <option value="{{value}}">{{label}}</option>
+                     {{/survey_field_options}}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Enunciado</label>
+        <div class="col-lg-10">
+          {{#id}}
+            <input type="text" id="enunciado_{{index}}" name="survey_form[existing_survey_fields_attributes][{{id}}][title]" class="form-control" placeholder="Enunciado" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
+            <input type="hidden" name="survey_form[existing_survey_fields_attributes][{{id}}][survey_type_id]" value="2" />
+          {{/id}}
+          {{^id}}
+            <input type="text" id="enunciado_{{index}}" name="survey_form[new_survey_fields_attributes][][title]" class="form-control" placeholder="Enunciado" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
+            <input type="hidden" name="survey_form[new_survey_fields_attributes][][survey_type_id]" value="2" />
+          {{/id}}
+        </div>
+      </div>
+      <div id="values_field_{{index}}_div">
+         {{#survey_field_options}}
+          <div class="form-group">
+            <label class="col-lg-2 control-label" for="survey_form_Enunciado">Valor {{index}}</label>
+            <div class="col-lg-10">
+              {{#id}}
+                <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[existing_survey_fields_attributes][{{survey_field_id}}][existing_survey_field_options_attributes][{{id}}][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" value="{{label}}" />
+                <input type="hidden" name="survey_form[existing_survey_fields_attributes][{{survey_field_id}}][existing_survey_field_options_attributes][{{id}}][value]" value="{{index}}" />
+              {{/id}}
+              {{^id}}
+                <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[new_survey_fields_attributes][][new_survey_field_options_attributes][][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" value="{{label}}" />
+                <input type="hidden" name="survey_form[new_survey_fields_attributes][{{survey_field_id}}][new_survey_field_options_attributes][][value]" value="{{index}}" />
+              {{/id}}
+            </div>
+          </div>
+         {{/survey_field_options}}
+      </div>
+      <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-10"> <span onclick="addValueComboBox('values_field_{{index}}',{{index}})"  style="cursor: pointer">Adicionar Valor</span></div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script id="combobox_fields_Tpl" type="text/template">
+  <div class="form-group">
+    <label class="col-lg-2 control-label">Valor {{index}}</label>
+    <div class="col-lg-10">
+      <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[new_survey_fields_attributes][][new_survey_field_options_attributes][][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" />
+      <input type="hidden" name="survey_form[new_survey_fields_attributes][][new_survey_field_options_attributes][][value]" value="{{index}}" />
+    </div>
+  </div>
+</script>

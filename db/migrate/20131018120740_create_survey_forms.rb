@@ -9,7 +9,7 @@ class CreateSurveyForms < ActiveRecord::Migration
     end
 
     def down
-		drop_table :survey_forms
+		  drop_table :survey_forms
     end
   end
 end

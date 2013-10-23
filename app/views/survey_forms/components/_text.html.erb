@@ -1,0 +1,33 @@
+<script id="textTpl" type="text/template">
+  <div id="field{{index}}" class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-2"><h3 class="panel-title">Campo ComboBox</h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer">Remover</span></div>
+        <div class="col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Pré visualisação</h3>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label class="col-lg-2 control-label" id="enunciado_{{index}}_pv" for="survey_form_Enunciado">{{title}}</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" id="cb_{{index}}_pv" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Enunciado</label>
+        <div class="col-lg-10">
+          <input type="text" id="enunciado_{{index}}" name="survey_form[new_survey_fields_attributes][][title]" class="form-control" placeholder="Enunciado" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
+          <input type="hidden" name="survey_form[new_survey_fields_attributes][][survey_type_id]" value="1" />
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

@@ -1,0 +1,36 @@
+<%= render "survey_forms/components/text" %>
+<%= render "survey_forms/components/combobox" %>
+
+<script type="text/javascript">
+  var data = { "survey_fields": <%=h f.object.survey_fields.to_json(:include =>[:survey_field_options]).to_s.html_safe %>};
+  console.log(data)
+  $.each( data.survey_fields, function( key, survey_field ) {
+
+    var interConter = 1;
+    $.each( survey_field.survey_field_options, function( key, survey_field_option ) {
+      survey_field_option.index=interConter;
+      survey_field_option.father=conter;
+
+      conterComboBox["values_field_"+conter] = {index:interConter,father:conter}
+
+      interConter ++;
+    });
+
+    survey_field.index=conter;
+    
+    if(survey_field.survey_type_id == 1){
+      var template = $('#textTpl').html();
+      var html = Mustache.to_html(template, survey_field);
+      $("#campos").append(html);
+
+    } else if(survey_field.survey_type_id == 2){
+      var template = $('#comboboxTpl').html();
+      var html = Mustache.to_html(template, survey_field);
+      $("#campos").append(html);
+    }
+    
+    conter ++;
+  });
+  $("#campos").show();  
+  $("#survey_form_type_list").val("");
+</script>

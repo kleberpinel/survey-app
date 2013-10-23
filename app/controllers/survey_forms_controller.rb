@@ -75,8 +75,19 @@ class SurveyFormsController < ApplicationController
       @survey_form = SurveyForm.find(params[:id])
     end
 
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_form_params
-      params.require(:survey_form).permit(:title, :requestor, :responses)
+      params.require(:survey_form).permit(:title, :requestor, :responses, 
+
+        new_survey_fields_attributes: 
+        [:title, :survey_type_id, new_survey_field_options_attributes: 
+          [:label, :value]],
+
+        existing_survey_fields_attributes: 
+        [:title, :survey_type_id, existing_survey_field_options_attributes: 
+          [:label, :value]]
+
+        )
     end
 end
