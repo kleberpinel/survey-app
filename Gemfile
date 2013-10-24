@@ -16,6 +16,7 @@ gem 'therubyracer'
 gem "less-rails-bootstrap"
 gem "font-awesome-rails"
 gem 'mustache-js-rails'
+gem 'bootstrap-datepicker-rails'
 
 gem "breadcrumbs_on_rails"
 

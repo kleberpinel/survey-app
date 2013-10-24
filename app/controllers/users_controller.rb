@@ -58,6 +58,7 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation)
     end
 
+    Rails.logger.debug "#{user_params.inspect}"
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'Usuário atualizado com sucesso.' }
@@ -87,6 +88,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email)
+      params.require(:user).permit(:email, :gender, :name, :birth)
     end
 end

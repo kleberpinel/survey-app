@@ -28,6 +28,8 @@ GEM
     arel (4.0.0)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
+    bootstrap-datepicker-rails (1.1.1.8)
+      railties (>= 3.0)
     breadcrumbs_on_rails (2.3.0)
     builder (3.1.4)
     coffee-rails (4.0.0)
@@ -143,6 +145,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-datepicker-rails
   breadcrumbs_on_rails
   coffee-rails (~> 4.0.0)
   devise (= 3.0.0.rc)

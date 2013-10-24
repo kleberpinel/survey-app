@@ -7,9 +7,23 @@
 		<h3><span class="label label-default">Visualização</span> Usuário</h3>
 		<br>	
 		<p>
+		  <strong>Nome:</strong>
+		  <%= @user.name %>
+		</p>
+		<p>
+		  <strong>Nascimento:</strong>
+		  <%= @user.birth.strftime("%d/%m/%Y") %>
+		</p>
+		<p>
+		  <strong>Sexo:</strong>
+		  <%= @user.gender == 1 ? "Masculino" : "Feminino" %>
+		</p>
+		<p>
 		  <strong>Email:</strong>
 		  <%= @user.email %>
 		</p>
+
+		
 
 		<br>
 		<p>
