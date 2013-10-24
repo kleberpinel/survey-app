@@ -2,6 +2,8 @@ class SurveyField < ActiveRecord::Base
 	belongs_to :survey_form
 	has_many :survey_field_options, :dependent => :destroy
 
+	after_update :save_survey_fields_options
+
 	def new_survey_field_options_attributes=(survey_field_options_attributes)
 		survey_field_options_attributes.each do |survey_field_options_attribute|
 			survey_field_options.build(survey_field_options_attribute)
@@ -14,7 +16,6 @@ class SurveyField < ActiveRecord::Base
 			attributes = survey_fields_options_attributes[survey_fields_option.id.to_s]
 			if attributes
 				survey_fields_option.attributes = attributes
-				survey_fields_option.save()
 			else
 				survey_field_options.delete(survey_fields_option)
 			end

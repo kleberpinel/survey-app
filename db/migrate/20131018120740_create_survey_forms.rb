@@ -1,5 +1,9 @@
 class CreateSurveyForms < ActiveRecord::Migration
   def change
+    def down
+      drop_table :survey_forms
+    end
+    
     create_table :survey_forms do |t|
       t.string :title
       t.integer :responses
@@ -8,8 +12,6 @@ class CreateSurveyForms < ActiveRecord::Migration
       t.timestamps
     end
 
-    def down
-		  drop_table :survey_forms
-    end
+    
   end
 end
