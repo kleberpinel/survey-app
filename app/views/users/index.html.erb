@@ -8,6 +8,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Id</th>
           <th>Email</th>
           <th></th>
           <th></th>
@@ -17,9 +18,10 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
+             <td><%= link_to user.id, user, :style => "background-color: transparent; color: black" %></td>
             <td><%= link_to user.email, user, :style => "background-color: transparent; color: black" %></td>
             <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-edit"), edit_user_path(user), :style=>"background-color: transparent; color: black" %></td>
-            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), user, method: :delete, data: { confirm: 'Are you sure?' }, :style=>"background-color: transparent; color: black"  %></td>
+            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), user, method: :delete, data: { confirm: 'Tem certeza' }, :style=>"background-color: transparent; color: black"  %></td>
           </tr>
         <% end %>
       </tbody>

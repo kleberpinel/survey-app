@@ -3,8 +3,21 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
+  before_action :is_user_allowed
+
   add_breadcrumb "Home", :root_path
   add_breadcrumb "Usuario", :users_path 
+
+  def is_user_allowed
+    if(current_user.isAdmin)
+      return true
+    end
+    if(current_user.id.to_s == params[:id])
+      return true
+    end
+    flash[:erro] = "Você não tem acesso a esse recurso"
+    redirect_to root_path
+  end
 
   # GET /user
   # GET /user.json

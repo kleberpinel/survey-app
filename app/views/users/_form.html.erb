@@ -44,7 +44,11 @@
 
     <div class="col-lg-offset-2 col-lg-10">
       <div class="row">
-        <div class="col-md-6"><%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, users_path %></div>
+        <div class="col-md-6">
+          <%- if current_user.isAdmin %>
+            <%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, users_path %>
+          <% end %>
+        </div>
         <div class="col-md-6" style="text-align: right"><%= f.submit :class=>"btn btn-success", :value=>"Salvar"%></div>
       </div>
     </div

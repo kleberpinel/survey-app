@@ -27,7 +27,9 @@
 
 		<br>
 		<p>
-			<%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, users_path %>
+			<%- if current_user.isAdmin %>
+				<%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, users_path %>
+			<% end %>
 	        <%= link_to "<button class='btn btn btn-info' type='button'>Editar</button>".html_safe, edit_user_path(@user) %>
     	</p>
 	</div>

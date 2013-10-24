@@ -1,0 +1,22 @@
+<form class="form-horizontal" action="#">
+	<h3><%= @survey_form.title %></h3>
+	<hr>
+	<p><%= @survey_form.description %></p>
+	<%- @survey_form.survey_fields.each do | survey_field | %>
+		<%- if survey_field.survey_type_id == 1 %>
+        <div class="form-group">
+          <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
+          <div class="col-lg-5">
+           <%= text_field_tag "", "", :class =>  "form-control" %>
+          </div>
+        </div>
+		<%- elsif survey_field.survey_type_id == 2 %>
+			<div class="form-group">
+          <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
+          <div class="col-lg-5">
+           <%= select "", "", options_for_select(survey_field.survey_field_options.all.map{|s| [s.label, s.value]}), { :prompt=>"Selecione uma alternativa" }, {:class =>  "form-control" }%>
+          </div>
+        </div>
+		<% end %>
+	<% end %>
+</form>
