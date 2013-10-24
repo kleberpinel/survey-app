@@ -29,13 +29,11 @@
       <div class="form-group">
         <label class="col-lg-2 control-label">Enunciado</label>
         <div class="col-lg-10">
+          <input type="text" id="enunciado_{{index}}" name="survey_form[survey_fields_attributes][][title]" class="form-control" placeholder="Enunciado" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
+          <input type="hidden" name="survey_form[survey_fields_attributes][][survey_type_id]" value="2" />
           {{#id}}
-            <input type="text" id="enunciado_{{index}}" name="survey_form[existing_survey_fields_attributes][{{id}}][title]" class="form-control" placeholder="Enunciado" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
-            <input type="hidden" name="survey_form[existing_survey_fields_attributes][{{id}}][survey_type_id]" value="2" />
-          {{/id}}
-          {{^id}}
-            <input type="text" id="enunciado_{{index}}" name="survey_form[new_survey_fields_attributes][][title]" class="form-control" placeholder="Enunciado" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
-            <input type="hidden" name="survey_form[new_survey_fields_attributes][][survey_type_id]" value="2" />
+            <input type="hidden" name="survey_form[survey_fields_attributes][][id]" value="{{id}}" />
+            <input type="hidden" id="field{{index}}_remove" name="survey_form[survey_fields_attributes][][_destroy]" value="0" />
           {{/id}}
         </div>
       </div>
@@ -44,13 +42,11 @@
           <div class="form-group">
             <label class="col-lg-2 control-label" for="survey_form_Enunciado">Valor {{index}}</label>
             <div class="col-lg-10">
+              <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" value="{{label}}" />
+              <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][value]" value="{{index}}" />
               {{#id}}
-                <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[existing_survey_fields_attributes][{{survey_field_id}}][existing_survey_field_options_attributes][{{id}}][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" value="{{label}}" />
-                <input type="hidden" name="survey_form[existing_survey_fields_attributes][{{survey_field_id}}][existing_survey_field_options_attributes][{{id}}][value]" value="{{index}}" />
-              {{/id}}
-              {{^id}}
-                <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[new_survey_fields_attributes][][new_survey_field_options_attributes][][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" value="{{label}}" />
-                <input type="hidden" name="survey_form[new_survey_fields_attributes][{{survey_field_id}}][new_survey_field_options_attributes][][value]" value="{{index}}" />
+                <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][id]" value="{{id}}" />
+                <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][_destroy]" value="0" />
               {{/id}}
             </div>
           </div>
@@ -68,8 +64,8 @@
   <div class="form-group">
     <label class="col-lg-2 control-label">Valor {{index}}</label>
     <div class="col-lg-10">
-      <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[new_survey_fields_attributes][][new_survey_field_options_attributes][][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" />
-      <input type="hidden" name="survey_form[new_survey_fields_attributes][][new_survey_field_options_attributes][][value]" value="{{index}}" />
+      <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueComboBox(this)" />
+      <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][value]" value="{{index}}" />
     </div>
   </div>
 </script>

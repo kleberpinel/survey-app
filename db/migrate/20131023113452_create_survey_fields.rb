@@ -4,7 +4,7 @@ class CreateSurveyFields < ActiveRecord::Migration
     create_table :survey_fields do |t|
       t.string :title
       t.integer :survey_type_id
-      t.references :survey_form, index: true
+      t.belongs_to :survey_form
 
       t.timestamps
     end

@@ -3,7 +3,7 @@ class CreateSurveyFieldOptions < ActiveRecord::Migration
     create_table :survey_field_options do |t|
       t.string :label
       t.integer :value
-      t.references :survey_field, index: true
+      t.belongs_to :survey_field
 
       t.timestamps
     end

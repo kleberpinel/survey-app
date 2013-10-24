@@ -2,30 +2,5 @@ class SurveyField < ActiveRecord::Base
 	belongs_to :survey_form
 	has_many :survey_field_options, :dependent => :destroy
 
-	after_update :save_survey_fields_options
-
-	def new_survey_field_options_attributes=(survey_field_options_attributes)
-		survey_field_options_attributes.each do |survey_field_options_attribute|
-			survey_field_options.build(survey_field_options_attribute)
-		end
-	end
-
-	def existing_survey_field_options_attributes=(survey_fields_options_attributes)
-		
-		survey_field_options.reject(&:new_record?).each do |survey_fields_option|
-			attributes = survey_fields_options_attributes[survey_fields_option.id.to_s]
-			if attributes
-				survey_fields_option.attributes = attributes
-			else
-				survey_field_options.delete(survey_fields_option)
-			end
-		end
-	end
-
-	def save_survey_fields_options
-		survey_field_options.each do |survey_fields_option|
-			survey_fields_option.save(false)
-		end
-	end
-
+	accepts_nested_attributes_for :survey_field_options, reject_if: proc { |attributes| attributes['label'].blank? }, allow_destroy: true
 end

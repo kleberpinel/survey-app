@@ -47,7 +47,6 @@ class SurveyFormsController < ApplicationController
   # PATCH/PUT /survey_forms/1
   # PATCH/PUT /survey_forms/1.json
   def update
-
     respond_to do |format|
       if @survey_form.update(survey_form_params)
         format.html { redirect_to @survey_form, notice: 'Pesquisa interativa atualizada com sucesso.' }
@@ -78,16 +77,10 @@ class SurveyFormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_form_params
-      params.require(:survey_form).permit(:title, :requestor, :responses, 
-
-        new_survey_fields_attributes: 
-        [:title, :survey_type_id, new_survey_field_options_attributes: 
-          [:label, :value]],
-
-        existing_survey_fields_attributes: 
-        [:title, :survey_type_id, existing_survey_field_options_attributes: 
-          [:label, :value]]
-
-        )
+      params.require(:survey_form).permit(:title, :requestor, 
+        survey_fields_attributes: 
+          [:title, :survey_type_id, :id, :_destroy, survey_field_options_attributes: 
+            [:label, :value, :id]]
+          )
     end
 end

@@ -42,8 +42,6 @@ ActiveRecord::Schema.define(version: 20131023113714) do
     t.datetime "updated_at"
   end
 
-  add_index "survey_field_options", ["survey_field_id"], name: "index_survey_field_options_on_survey_field_id", using: :btree
-
   create_table "survey_fields", force: true do |t|
     t.string   "title"
     t.integer  "survey_type_id"
@@ -51,8 +49,6 @@ ActiveRecord::Schema.define(version: 20131023113714) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "survey_fields", ["survey_form_id"], name: "index_survey_fields_on_survey_form_id", using: :btree
 
   create_table "survey_forms", force: true do |t|
     t.string   "title"

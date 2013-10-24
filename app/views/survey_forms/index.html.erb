@@ -23,7 +23,7 @@
             <td><%= survey_form.user.email %></td>
             <td><%= survey_form.responses %></td>
             <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-edit"), edit_survey_form_path(survey_form), :style=>"background-color: transparent; color: black" %></td>
-            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), survey_form, method: :delete, data: { confirm: 'Are you sure?' }, :style=>"background-color: transparent; color: black"  %></td>
+            <td style="text-align: center"><%= link_to content_tag(:span, "", :class => "glyphicon glyphicon-remove"), survey_form, method: :delete, data: { confirm: 'Tem certeza?' }, :style=>"background-color: transparent; color: black"  %></td>
           </tr>
         <% end %>
       </tbody>
