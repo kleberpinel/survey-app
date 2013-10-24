@@ -12,7 +12,9 @@
 		</p>
 		<p>
 		  <strong>Nascimento:</strong>
-		  <%= @user.birth.strftime("%d/%m/%Y") %>
+		  <%- if @user.birth %>
+		  	<%= @user.birth.strftime("%d/%m/%Y") %>
+		  <% end %>
 		</p>
 		<p>
 		  <strong>Sexo:</strong>
@@ -22,8 +24,6 @@
 		  <strong>Email:</strong>
 		  <%= @user.email %>
 		</p>
-
-		
 
 		<br>
 		<p>

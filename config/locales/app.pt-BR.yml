@@ -1,0 +1,45 @@
+pt-BR:
+  app:
+    preview: Pré visualisação
+    enunciado: Enunciado
+    remove: Remover
+    value: Valor
+    select_a_type_of_field: Selecione um tipo de campo
+    survey_field:
+      label_name: Campo de %{field_name}
+      select_a_type_of_field: Selecione um tipo de campo
+      text:
+        name: Texto
+      combobox:
+        name: Combobox
+        add_value: Adicionar Valor
+        options: Seleciona uma das alternativas
+        placeholder:
+          option: Alternativa
+    placeholder:
+      user:
+        name: "Digite o nome do usuário"
+        email: "Digite o e-mail"
+        gender: "Sexo"
+        password: "Digite a senha"
+        password_confirmation: "Digite novamente a senha"
+        birth: "Digite a sua data de nascimento"
+      survey_form:
+        title: "Escreva o título da sua pesquisa"
+        description: "Aqui você deve escrever uma breve descrição para introdução de sua pesquisa."
+  activerecord:
+    models:
+        user: Usuário
+    attributes:
+      user:
+        name: "Nome"
+        email: "E-mail"
+        gender: "Sexo"
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
+        birth: "Nascimento"
+      survey_form:
+        title: "Título"
+        description: "Descrição"
+        add_type_list: "Adicionar campo do tipo"
+        user: "Solicitante"

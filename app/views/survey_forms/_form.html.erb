@@ -10,30 +10,30 @@
   <% end %>
 
   <dl class="dl-horizontal">
-    <dt>Solicitante</dt>
+    <dt><%= f.label :user%></dt>
     <dd><%= current_user.email %></dd>
   </dl>
 
   <div class="form-group">
-    <%= f.label "Titulo", :class => "col-lg-2 control-label"%>
+    <%= f.label :title, :class => "col-lg-2 control-label"%>
     <div class="col-lg-10">
-      <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => "Titulo da sua pesquisa"%>
+      <%= f.text_field :title, :autofocus => true, :class => "form-control", :placeholder => t("app.placeholder.survey_form.title")%>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label "Descritivo", :class => "col-lg-2 control-label"%>
+    <%= f.label :description, :class => "col-lg-2 control-label"%>
     <div class="col-lg-10">
-      <%= f.text_area :description, :class => "form-control", :placeholder => "Aqui vem um texto descritivo de introdução ao formulário onde pode ser explicado todo o contexto da pesquisa."%>
+      <%= f.text_area :description, :class => "form-control", :placeholder => t("app.placeholder.survey_form.description")%>
     </div>
   </div>
 
   <div id="campos" class="form-group" style="display: none"></div>
  
   <div class="form-group">
-    <%= f.label "Adicionar campo do tipo", :class => "col-lg-2 control-label"%>
+    <%= f.label :add_type_list, :class => "col-lg-2 control-label"%>
     <div class="col-lg-10">
-     <%= f.select :type_list, options_for_select(SurveyType.types.collect{|p| [ p.label, p.id ] }), {prompt: "Selecione um tipo de campo"}, 
+     <%= f.select :type_list, options_for_select(SurveyType.types.collect{|p| [ p.label, p.id ] }), {prompt: t("app.select_a_type_of_field")}, 
       {:class =>  "form-control", :onChange => 'addFieldType(this.value)' } %>
     </div>
   </div>
@@ -78,7 +78,6 @@
       console.log(id)
       $("#"+id+ "_remove").val(1);
       $("#"+id).hide();
-      conter --;
     }
 
     function changeEnunciado(obj){

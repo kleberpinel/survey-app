@@ -9,21 +9,21 @@
 			  <%= devise_error_messages! %>
 
 			  <div class="form-group">
-			    <%= f.label "Nome", :class => "col-lg-2 control-label"%>
+			    <%= f.label :name, :class => "col-lg-2 control-label"%>
 			    <div class="col-lg-10">
-			      <%= f.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Nome"%>
+			      <%= f.text_field :name, :autofocus => true, :class => "form-control", :placeholder => t("app.placeholder.user.name")%>
 			    </div>
 			  </div>
 
 			  <div class="form-group">
-			    <%= f.label "Nascimento", :class => "col-lg-2 control-label"%>
+			    <%= f.label :birth, :class => "col-lg-2 control-label"%>
 			    <div class="col-lg-10">
-			      	<%= f.text_field :birth, :class => "form-control", 'data-behaviour' => "datepicker", 'data-date-format' => 'dd/mm/yyyy', 'placeholder' =>  (DateTime.now + 1.years).strftime("%d/%m/%Y") %>
+			      	<%= f.text_field :birth, :class => "form-control", 'data-behaviour' => "datepicker", 'data-date-format' => 'dd/mm/yyyy', 'placeholder' => t("app.placeholder.user.birth") %>
 			    </div>
 			  </div>
 
 			   <div class="form-group">
-			    <%= f.label "Sexo", :class => "col-lg-2 control-label"%>	
+			    <%= f.label :gender, :class => "col-lg-2 control-label"%>	
 			    <div class="col-lg-10">
 			      <%= f.select :gender, [['Masculino', 1], ['Feminino', 0]] , {}, {:class => "form-control"}%>
 			    </div>
@@ -32,21 +32,21 @@
 			  <div class="form-group">
 			    <%= f.label :email, :class => "col-lg-2 control-label"%>
 			    <div class="col-lg-10">
-			      <%= f.email_field :email, :class => "form-control", :placeholder => "Email"%>
+			      <%= f.email_field :email, :class => "form-control", :placeholder => t("app.placeholder.user.email")%>
 			    </div>
 			  </div>
 
 			  <div class="form-group">
-			    <%= f.label "Senha", :class => "col-lg-2 control-label"%>
+			    <%= f.label :password, :class => "col-lg-2 control-label"%>
 			    <div class="col-lg-10">
-			      <%= f.password_field :password, :class => "form-control", :placeholder => "Password"%>
+			      <%= f.password_field :password, :class => "form-control", :placeholder => t("app.placeholder.user.password")%>
 			    </div>
 			  </div>
 
 			  <div class="form-group">
-			    <%= f.label "Confirmação senha", :class => "col-lg-2 control-label"%>
+			    <%= f.label :password_confirmation, :class => "col-lg-2 control-label"%>
 			    <div class="col-lg-10">
-			      <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Password Confirmation"%>
+			      <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => t("app.placeholder.user.password_confirmation")%>
 			    </div>
 			  </div>
 

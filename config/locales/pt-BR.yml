@@ -206,6 +206,5 @@ pt-BR:
   activemodel:
     errors:
       <<: *errors
-  activerecord:
     errors:
       <<: *errors

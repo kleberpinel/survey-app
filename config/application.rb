@@ -24,8 +24,9 @@ module Survey
     
     config.action_controller.include_all_helpers = false
     
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**/*.{rb,yml}').to_s]
+    
     config.i18n.default_locale = :'pt-BR'
-
 
   end
 end

@@ -2,11 +2,11 @@
   <div id="field{{index}}" class="panel panel-default">
     <div class="panel-heading">
       <div class="row">
-        <div class="col-md-2"><h3 class="panel-title">Campo ComboBox</h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer">Remover</span></div>
+        <div class="col-md-2"><h3 class="panel-title"><%= t("app.survey_field.label_name", :field_name =>t("app.survey_field.text.name")) %></h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer"><%=t "app.remove" %></span></div>
         <div class="col-md-10">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Pré visualisação</h3>
+              <h3 class="panel-title"><%=t "app.preview" %></h3>
             </div>
             <div class="panel-body">
               <div class="form-group">
@@ -22,9 +22,9 @@
     </div>
     <div class="panel-body">
       <div class="form-group">
-        <label class="col-lg-2 control-label">Enunciado</label>
+        <label class="col-lg-2 control-label"><%=t "app.enunciado" %></label>
         <div class="col-lg-10">
-          <input type="text" id="enunciado_{{index}}" name="survey_form[survey_fields_attributes][][title]" class="form-control" placeholder="Enunciado" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
+          <input type="text" id="enunciado_{{index}}" name="survey_form[survey_fields_attributes][][title]" class="form-control" placeholder="<%=t "app.enunciado" %>" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
           <input type="hidden" name="survey_form[survey_fields_attributes][][survey_type_id]" value="1" />
           {{#id}}
             <input type="hidden" name="survey_form[survey_fields_attributes][][id]" value="{{id}}" />
