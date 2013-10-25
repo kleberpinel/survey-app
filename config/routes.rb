@@ -2,6 +2,7 @@ Survey::Application.routes.draw do
   resources :survey_forms
   get "survey/open"
   get "survey/:id" , to: 'survey#show', as: 'survey'
+  get "survey_forms/:id/report" , to: 'survey_forms#report', as: 'report_survey_form'
   patch "survey_delivery" , to: 'survey#delivery', as: 'survey_deliver'
 
   devise_for :users, :path_prefix => 'my'

@@ -19,6 +19,7 @@
            <%= text_field_tag "survey_form[answers_attributes][][value_answer]", "", :id=>"field_#{survey_field.id}_text", :onkeyup=> "$('#' + this.id +'_label').val(this.value)",:class =>  "form-control" %>
            <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_text_label"%>
            <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
+           <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
           </div>
         </div>
 		<%- elsif survey_field.survey_type_id == 2 %>
@@ -32,6 +33,7 @@
            
            <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_cb_label"%>
            <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
+           <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
           </div>
         </div>
 		<% end %>

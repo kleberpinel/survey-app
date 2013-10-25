@@ -19,11 +19,14 @@ ActiveRecord::Schema.define(version: 20131025160444) do
   create_table "answers", force: true do |t|
     t.string   "label_answer"
     t.string   "value_answer"
+    t.string   "identifier"
     t.integer  "survey_form_id"
     t.integer  "survey_field_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "answers", ["identifier"], name: "index_answers_on_identifier", using: :btree
 
   create_table "models", force: true do |t|
     t.string   "email",                  default: "", null: false

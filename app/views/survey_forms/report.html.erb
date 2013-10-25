@@ -1,0 +1,30 @@
+<div class="container"> 
+	<div class="well well-lg center" >
+		<% if flash[:notice] %>
+			<div id="notice" class="alert alert-info"><%= notice %></div>
+		<% end %>
+		<h3><span class="label label-default">Report</span> Pesquisa interativa</h3>
+		<br>	
+		<p>
+		  <strong>Titulo:</strong>
+		  <%= @survey_form.title %>
+		</p>
+		<p>
+		  <strong>Respostas:</strong>
+		  <%= @survey_form.responses %>
+		</p>
+		<p>
+			<%- @survey_form.answers.each { |answer| %>
+				Pergunta: <%= answer.survey_field.title %> <br>
+				Resposta: <%= answer.label_answer %> <br>
+				Identifier: <%= answer.identifier %> <br>
+				 <br>
+			<% } %>
+		</p>
+
+		<br>
+		<p>
+			<%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, survey_form_path(@survey_form) %>
+    	</p>
+	</div>
+</div>

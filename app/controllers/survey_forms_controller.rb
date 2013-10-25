@@ -1,5 +1,5 @@
 class SurveyFormsController < ApplicationController
-  before_action :set_survey_form, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey_form, only: [:show, :edit, :update, :destroy, :report]
 
   before_filter :authenticate_user!
 
@@ -30,6 +30,9 @@ class SurveyFormsController < ApplicationController
 
   # GET /survey_forms/1/edit
   def edit
+  end
+
+  def report
   end
 
   # POST /survey_forms

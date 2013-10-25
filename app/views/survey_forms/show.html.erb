@@ -18,6 +18,9 @@
 		<p>
 		  <strong>Respostas:</strong>
 		  <%= @survey_form.responses %>
+		  <%- if @survey_form.responses > 0 %>
+		  	<%= link_to "<button class='btn btn-success' type='button'>Ver relatório</button>".html_safe, report_survey_form_path(@survey_form) %>
+		  <% end %>
 		</p>
 		<p>
 		  <strong>Restrita:</strong>

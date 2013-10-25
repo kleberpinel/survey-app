@@ -14,12 +14,13 @@ class SurveyController < ApplicationController
 
   def show
     @survey_form = SurveyForm.find(params[:id])
+    @identifier = Time.new.try(:strftime,'%Y%m%d%H%M%S%L') + @survey_form.id.to_s
   end
 
   def delivery
-    @survey_form.update(survey_form_params)
     respond_to do |format|
       if @survey_form.update(survey_form_params)
+        SurveyForm.increment_counter :responses , @survey_form.id
         format.html { flash[:notice] = 'Pesquisa respondida com sucesso.' }
         format.json { head :no_content }
       else
@@ -32,7 +33,7 @@ class SurveyController < ApplicationController
   private
     def survey_form_params
       params.require(:survey_form).permit(:id, answers_attributes: [
-          :label_answer, :value_answer, :survey_field_id
+          :label_answer, :value_answer, :survey_field_id, :identifier
         ])
     end
 
