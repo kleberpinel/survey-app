@@ -12,7 +12,9 @@
       <%= button_to 'Cadastre-se', new_user_registration_path, :class => "btn btn-primary btn-lg", :method => "get" %> 
     <% end %>
   </p>
-  <p class="small">Abaixo temos algumas pesquisa abertas que podem ser respondidas anonimamente. Apenas o solicitante recebera os dados garantindo assim seu anonimato.</p>
-  <%= render "open", survey_forms: @survey_forms %>
+  <%- if  @survey_forms.size > 0 %>
+    <p class="small">Abaixo temos algumas pesquisa abertas que podem ser respondidas anonimamente. Apenas o solicitante recebera os dados garantindo assim seu anonimato.</p>
+    <%= render "open", survey_forms: @survey_forms %>
+  <% end %>
   <%= render "layouts/footer" %>
 </div>
