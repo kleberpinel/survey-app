@@ -1,0 +1,10 @@
+<div class="container"> 
+	<% if flash[:notice] %>
+		<div id="notice" class="alert alert-info"><%= notice %></div>
+	<% end %>
+	<div class="well well-lg center" >
+		<h3>Obrigado por responder nossa pesquisa</h3>
+	</div>
+	<%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, root_path %>
+	<%= render "layouts/footer" %>
+</div>

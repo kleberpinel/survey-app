@@ -1,0 +1,18 @@
+<div class="well well-lg center" >
+ <table class="table">
+    <thead>
+      <tr>
+        <th>Titulo</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @survey_forms.each do |survey_form| %>
+        <tr>
+          <td><%= link_to survey_form.title, survey_path(survey_form.id), :style => "background-color: transparent; color: black" %></td>
+          <td style="text-align: center"></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

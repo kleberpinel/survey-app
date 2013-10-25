@@ -1,0 +1,18 @@
+<div class="container"> 
+  <% if flash[:notice] %>
+    <div id="notice" class="alert alert-info"><%= notice %></div>
+  <% end %>
+  <div class="page-header">
+    <h1>Veja como funciona</h1>
+    <p class="lead">Se uma pessoa/empresa quer saber a opinião sobre um determinado assunto, basta apenas se cadastrar em nosso site para gerar essa pesquisa e sair distribuindo o link para todos que quiserem.</p>
+  </div>
+  <p class="lead">Para ter acesso as pesquisas restritas disponíveis para você, crie um cadastro agora mesmo!</p>  
+  <p>
+    <% if !user_signed_in? %>
+      <%= button_to 'Cadastre-se', new_user_registration_path, :class => "btn btn-primary btn-lg", :method => "get" %> 
+    <% end %>
+  </p>
+  <p class="small">Abaixo temos algumas pesquisa abertas que podem ser respondidas anonimamente. Apenas o solicitante recebera os dados garantindo assim seu anonimato.</p>
+  <%= render "open", survey_forms: @survey_forms %>
+  <%= render "layouts/footer" %>
+</div>

@@ -43,3 +43,4 @@ pt-BR:
         description: "Descrição"
         add_type_list: "Adicionar campo do tipo"
         user: "Solicitante"
+        restrict: "Pesquisa restrita"

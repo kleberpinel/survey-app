@@ -19,13 +19,17 @@
 		  <strong>Respostas:</strong>
 		  <%= @survey_form.responses %>
 		</p>
+		<p>
+		  <strong>Restrita:</strong>
+		  <%= @survey_form.restrict == true ? "Sim" : "Não" %>
+		</p>
 
 		<div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Pré visualisação</h3>
           </div>
           <div class="panel-body">
-          	<%= render "survey_forms/components/survey", survey_form: @survey_form %>
+          	<%= render "survey_forms/components/survey", survey_form: @survey_form, preview: true %>
           </div>
         </div>
 

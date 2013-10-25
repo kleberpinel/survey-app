@@ -1,22 +1,50 @@
-<form class="form-horizontal" action="#">
-	<h3><%= @survey_form.title %></h3>
+<%= form_for(@survey_form, :url => survey_deliver_path(), :html => {:class => 'form-horizontal'}) do |f| %>
+	<% if @survey_form.errors.any? %>
+    <div class="alert alert-danger">
+      <h2>Problemas ao salvar suas respostas!</h2>
+       <% @survey_form.errors.full_messages.each do |msg| %>
+        <ul><%= msg %></ul>
+      <% end %>
+    </div>
+  <% end %>
+  <h3><%= @survey_form.title %></h3>
 	<hr>
 	<p><%= @survey_form.description %></p>
-	<%- @survey_form.survey_fields.each do | survey_field | %>
+  <%= hidden_field_tag "survey_form[id]", @survey_form.id %>
+  <%- @survey_form.survey_fields.each do | survey_field | %>
 		<%- if survey_field.survey_type_id == 1 %>
         <div class="form-group">
           <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
           <div class="col-lg-5">
-           <%= text_field_tag "", "", :class =>  "form-control" %>
+           <%= text_field_tag "survey_form[answers_attributes][][value_answer]", "", :id=>"field_#{survey_field.id}_text", :onkeyup=> "$('#' + this.id +'_label').val(this.value)",:class =>  "form-control" %>
+           <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_text_label"%>
+           <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
           </div>
         </div>
 		<%- elsif survey_field.survey_type_id == 2 %>
 			<div class="form-group">
           <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
           <div class="col-lg-5">
-           <%= select "", "", options_for_select(survey_field.survey_field_options.all.map{|s| [s.label, s.value]}), { :prompt=>"Selecione uma alternativa" }, {:class =>  "form-control" }%>
+           
+           <%= select_tag "survey_form[answers_attributes][][value_answer]",
+            options_from_collection_for_select(survey_field.survey_field_options, "value","label"), 
+            { :prompt=>"Selecione uma alternativa", :class =>  "form-control", :id=>"field_#{survey_field.id}_cb", :onChange => "$('#' + this.id +'_label').val(this.options[this.selectedIndex].innerHTML)" }%>
+           
+           <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_cb_label"%>
+           <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
           </div>
         </div>
 		<% end %>
 	<% end %>
-</form>
+
+  <%- if !preview %>
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <div class="row">
+          <div class="col-md-6"><%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, survey_open_path %></div>
+          <div class="col-md-6" style="text-align: right"><%= f.submit :class=>"btn btn-success", :value=>"Salvar"%></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

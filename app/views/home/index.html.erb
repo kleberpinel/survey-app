@@ -10,12 +10,7 @@
   <div class="container">
     <h1>Pesquisa interativa</h1>
     <p>Existem várias maneiras de conhecer ou aprender sobre algo específico, mas a melhor delas é fazendo as peguntas certas para pessoas certas</p>
-     <% if user_signed_in? %>
-        <%= button_to 'Pesquisas', survey_forms_path, :class => "btn btn-primary btn-lg", :method => "get" %> 
-      <% else %>
-        <%= button_to 'Cadastre-se', new_user_registration_path, :class => "btn btn-primary btn-lg", :method => "get" %> 
-      <% end %>
-    
+    <%= button_to 'Pesquisas', survey_open_path, :class => "btn btn-primary btn-lg", :method => "get" %> 
   </div>
 </div>
 
@@ -38,9 +33,6 @@
   <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
 </div>
 </div>
-<hr>
-	<footer>
-		<p>&copy; Pesquisa Interativa</p>
-	</footer>
+<%= render "layouts/footer" %>
     </div> <!-- /container -->
 

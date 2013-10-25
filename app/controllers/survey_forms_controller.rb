@@ -1,7 +1,7 @@
 class SurveyFormsController < ApplicationController
   before_action :set_survey_form, only: [:show, :edit, :update, :destroy]
 
-  before_filter :authenticate_user!, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   add_breadcrumb "Home", :root_path
   add_breadcrumb "Pesquisa interativa", :survey_forms_path 
@@ -10,6 +10,12 @@ class SurveyFormsController < ApplicationController
   # GET /survey_forms.json
   def index
     @survey_forms = SurveyForm.all
+  end
+
+  # GET /survey_forms
+  # GET /survey_forms.json
+  def open
+    @survey_forms = SurveyForm.where(restrict: false)
   end
 
   # GET /survey_forms/1
@@ -77,7 +83,7 @@ class SurveyFormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_form_params
-      params.require(:survey_form).permit(:title, :requestor, :description, 
+      params.require(:survey_form).permit(:title, :requestor, :description, :restrict,
         survey_fields_attributes: 
           [:title, :survey_type_id, :id, :_destroy, survey_field_options_attributes: 
             [:label, :value, :id]]
