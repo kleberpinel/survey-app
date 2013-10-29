@@ -5,4 +5,4 @@ Este é um sistema feito em Ruby on Rails que permite a criação e administraç
 O sistema está disponivel para teste em [http://pesquisainterativa.herokuapp.com/](http://pesquisainterativa.herokuapp.com/)
 
 ## Autor
-* Kleber Pinel (<http://matheustardivo.com>)
+* Kleber Pinel (<http://br.linkedin.com/in/kleberpinel/>)
