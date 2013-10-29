@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if(current_user.id.to_s == params[:id])
       return true
     end
-    flash[:erro] = "Você não tem acesso a esse recurso"
+    flash[:error] = "Você não tem acesso a esse recurso"
     redirect_to root_path
   end
 

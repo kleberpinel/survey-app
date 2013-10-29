@@ -1,0 +1,124 @@
+<script id="radioTpl" type="text/template">
+  <div id="field{{index}}" class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-2"><h3 class="panel-title"><%= t("app.survey_field.label_name", :field_name =>t("app.survey_field.radio.name")) %></h3> <span onclick="removeFieldType('field{{index}}')" style="cursor: pointer"><%=t "app.remove" %></span></div>
+        <div class="col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%=t "app.preview" %></h3>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label class="col-lg-2 control-label" id="enunciado_{{index}}_pv" for="survey_form_Enunciado">{{title}}</label>
+                <div class="col-lg-10" id="radio_{{index}}_pv">
+                	 {{#survey_field_options}}
+                       <div class="radio" id="radio_{{index}}_pv">
+						  <label>
+						    <input type="radio" name="" value="{{value}}"><label id="radio_{{index}}_pv_label">{{label}}</label>
+						  </label>
+						</div>
+                     {{/survey_field_options}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><%=t "app.enunciado" %></label>
+        <div class="col-lg-10">
+          <input type="text" id="enunciado_{{index}}" name="survey_form[survey_fields_attributes][][title]" class="form-control" placeholder="<%=t "app.enunciado" %>" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
+          <input type="hidden" name="survey_form[survey_fields_attributes][][survey_type_id]" value="3	" />
+          <input type="hidden" name="survey_form[survey_fields_attributes][][order]" value="{{index}}" />
+          {{#id}}
+            <input type="hidden" name="survey_form[survey_fields_attributes][][id]" value="{{id}}" />
+            <input type="hidden" id="field{{index}}_remove" name="survey_form[survey_fields_attributes][][_destroy]" value="0" />
+          {{/id}}
+        </div>
+      </div>
+      <div id="values_field_{{index}}_div">
+         {{#survey_field_options}}
+          <div class="form-group">
+            <label class="col-lg-2 control-label" for="survey_form_Enunciado"><%=t "app.value" %> {{index_counter}}</label>
+            <div class="col-lg-10">
+              <input type="text" id="valor_{{index}}_{{father}}" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][label]" class="form-control" placeholder="Alternativa {{index}}" onFocusOut="setValueRadio(this)" value="{{label}}" />
+              <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][value]" value="{{index}}" />
+              {{#id}}
+                <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][id]" value="{{id}}" />
+                <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][_destroy]" value="0" />
+              {{/id}}
+            </div>
+          </div>
+         {{/survey_field_options}}
+      </div>
+      <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-10"> <span onclick="addValueRadio('values_field_{{index}}',{{index}})"  style="cursor: pointer"><%=t "app.survey_field.radio.add_value" %> </span></div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script id="radio_fields_Tpl" type="text/template">
+  <div class="form-group" id="opt_{{father}}_{{index}}">
+    <label class="col-lg-2 control-label">Valor {{index}}</label>
+    <div class="col-lg-10">
+      <input type="text" id="valor_{{father}}_{{index}}" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][label]" class="form-control" placeholder="<%= t "app.survey_field.radio.placeholder.option" %> {{index}}" onFocusOut="setValueRadio(this)" />
+      <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][value]" value="{{index}}" />
+    </div>
+  </div>
+</script>
+
+<script id="radio_fields_option_Tpl" type="text/template">
+	<div class="radio" id="radio_{{index}}_pv">
+	  <label>
+	    <input type="radio" name="" value="{{value}}"><label id="radio_{{index}}_pv_label">{{label}}</label>
+	  </label>
+	</div>
+</script>
+
+
+<script type="text/javascript">
+  function addValueRadio(field,idFather){
+
+    valor = conterRadio[field];
+    if(valor == undefined){
+      conterRadio[field] = {index:1,father:idFather}
+    } else {
+      valor.index ++;
+      conterRadio[field] = valor;
+    }
+    data = conterRadio[field];
+    var template = $('#radio_fields_Tpl').html();
+    var html = Mustache.to_html(template, data);
+    $("#" + field +  "_div").append(html);
+  }
+
+  function setValueRadio(obj){
+    idItem = obj.id.split("_")[2];
+    idFather = obj.id.split("_")[1];  
+
+    data = {
+    	index:idFather + "_"  + idItem,
+    	label: obj.value
+	}
+	if(obj.value == ""){
+		 $("#radio_"+data.index+"_pv").remove()
+		 $("#opt_"+data.index).remove()
+		 conterRadio["values_field_" + idFather].index --;
+	} else {
+		if($("#radio_" + data.index +  "_pv").html() != undefined){
+			$("#radio_" + data.index +  "_pv_label").html(data.label)
+		} else {
+			var template = $('#radio_fields_option_Tpl').html();
+		    var html = Mustache.to_html(template, data);
+		    $("#radio_" + idFather +  "_pv").append(html);
+		}
+	}
+
+    
+  }
+</script>

@@ -46,6 +46,7 @@
   <script type="text/javascript">
     var conter = 0;
     var conterComboBox = [];
+    var conterRadio = [];
   </script>
 
   <%- if f.object.survey_fields.size > 0 %>
@@ -65,6 +66,9 @@
         $("#campos").append(html);
         $("#campos").show();
 
+        console.log($("#field"+conter).html())
+        $("#field"+conter).draggable();
+
         $("#survey_form_type_list").val("");
         conter ++;
         
@@ -79,49 +83,25 @@
         $("#survey_form_type_list").val("");
         conter ++;
       }
+
+      //Radio
+      else if(value == "3"){
+        var template = $('#radioTpl').html();
+        var html = Mustache.to_html(template, data);
+        $("#campos").append(html);
+        $("#campos").show();
+
+        $("#survey_form_type_list").val("");
+        conter ++;
+      }
     }
     function removeFieldType(id){
-      console.log(id)
       $("#"+id+ "_remove").val(1);
       $("#"+id).hide();
     }
 
     function changeEnunciado(obj){
-      console.log(obj.id);
       $("#" + obj.id + "_pv").html(obj.value);
-    }
-
-    
-    function addValueComboBox(field,idFather){
-      console.log(field)
-
-      valor = conterComboBox[field];
-      if(valor == undefined){
-        conterComboBox[field] = {index:1,father:idFather}
-      } else {
-        valor.index ++;
-        conterComboBox[field] = valor;
-      }
-      data = conterComboBox[field];
-      var template = $('#combobox_fields_Tpl').html();
-      var html = Mustache.to_html(template, data);
-      $("#" + field +  "_div").append(html);
-    }
-
-    function setValueComboBox(obj){
-      idItem = obj.id.split("_")[1];
-      idFather = obj.id.split("_")[2];  
-      if(obj.value == ""){
-        $("#cb_"+ idFather + "_pv option[value='"+idItem+"']").remove();
-      } else {
-        console.log($("#cb_"+ idFather + "_pv option[value='"+idItem+"']").length)
-        if($("#cb_"+ idFather + "_pv option[value='"+idItem+"']").length == 0){
-          $("#cb_"+ idFather + "_pv").append( new Option(obj.value,idItem));
-        } else {
-          $("#cb_"+ idFather + "_pv option[value='"+idItem+"']").text(obj.value);
-        } 
-      }
-      
     }
   </script>
   

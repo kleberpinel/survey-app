@@ -1,30 +1,50 @@
 <%= render "survey_forms/components/text" %>
 <%= render "survey_forms/components/combobox" %>
+<%= render "survey_forms/components/radio" %>
 
 <script type="text/javascript">
+
+  var TEXT = 1;
+  var COMBOBOX = 2;
+  var RADIO = 3;
+
   var data = { "survey_fields": <%=h f.object.survey_fields.to_json(:include =>[:survey_field_options]).to_s.html_safe %>};
-  console.log(data)
+
   $.each( data.survey_fields, function( key, survey_field ) {
 
-    var interConter = 1;
+    var interConterCB = 1;
+    var interConterRadio = 1;
     $.each( survey_field.survey_field_options, function( key, survey_field_option ) {
-      survey_field_option.index=interConter;
+     
       survey_field_option.father=conter;
 
-      conterComboBox["values_field_"+conter] = {index:interConter,father:conter}
-
-      interConter ++;
+      if(survey_field.survey_type_id == COMBOBOX){
+        conterComboBox["values_field_"+conter] = {index:interConterCB,father:conter}
+        survey_field_option.index=interConterCB;
+        interConterCB ++;
+      }
+      else if(survey_field.survey_type_id == RADIO){
+        conterRadio["values_field_"+conter] = {index: interConterRadio,father:conter}
+        survey_field_option.index = conter + "_" + interConterRadio;
+        survey_field_option.index_counter = interConterRadio;
+        interConterRadio ++;
+      }
     });
 
     survey_field.index=conter;
     
-    if(survey_field.survey_type_id == 1){
+    if(survey_field.survey_type_id == TEXT){
       var template = $('#textTpl').html();
       var html = Mustache.to_html(template, survey_field);
       $("#campos").append(html);
 
-    } else if(survey_field.survey_type_id == 2){
+    } else if(survey_field.survey_type_id == COMBOBOX){
       var template = $('#comboboxTpl').html();
+      var html = Mustache.to_html(template, survey_field);
+      $("#campos").append(html);
+
+    } else if(survey_field.survey_type_id == RADIO){
+      var template = $('#radioTpl').html();
       var html = Mustache.to_html(template, survey_field);
       $("#campos").append(html);
     }

@@ -36,7 +36,24 @@
            <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
           </div>
         </div>
-		<% end %>
+    <%- elsif survey_field.survey_type_id == 3 %>
+      <div class="form-group">
+          <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
+          <div class="col-lg-5">
+            <% survey_field.survey_field_options.each { |radio| %>
+           <div class="radio" id="radio_{{index}}_pv">
+            <label>
+              <input type="radio" name="radio_<%= radio.survey_field.id %>" value="<%= radio.value %>"  onclick="setValueRadio(this.value, <%= radio.survey_field.id %>)"><label id="radio_<%= radio.survey_field.id %>_label"><%= radio.label %></label>
+            </label>
+          </div> 
+           <% } %>
+           <%= hidden_field_tag "survey_form[answers_attributes][][value_answer]", "", :id=>"field_#{survey_field.id}_cb_value"%>
+           <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_cb_label"%>
+           <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
+           <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
+          </div>
+        </div>
+    <% end %>
 	<% end %>
 
   <%- if !preview %>
@@ -50,3 +67,10 @@
     </div>
   <% end %>
 <% end %>
+
+<SCRIPT TYPE="text/javascript">
+  function setValueRadio(value, id){
+    $("#field_"+id+"_cb_value").val(value);
+    $("#field_"+id+"_cb_label").val($("#radio_"+id+"_label").html());
+  }
+</SCRIPT>

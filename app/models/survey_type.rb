@@ -12,7 +12,8 @@ class SurveyType
 
 	@@TYPES = [
 		SurveyType.new(:id => 1, :name => "text_type", :label => "Texto"),
-		SurveyType.new(:id => 2, :name => "combo_box", :label => "Combo Box")
+		SurveyType.new(:id => 2, :name => "combo_box", :label => "Combo Box"),
+		SurveyType.new(:id => 3, :name => "radio", :label => "Radio")
 	]
 
 	def self.types

@@ -16,6 +16,11 @@ pt-BR:
         options: Seleciona uma das alternativas
         placeholder:
           option: Alternativa
+      radio:
+        name: Radio
+        add_value: Adicionar Valor
+        placeholder:
+          option: Opção
     placeholder:
       user:
         name: "Digite o nome do usuário"

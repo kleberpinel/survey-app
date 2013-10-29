@@ -26,6 +26,7 @@
         <div class="col-lg-10">
           <input type="text" id="enunciado_{{index}}" name="survey_form[survey_fields_attributes][][title]" class="form-control" placeholder="<%=t "app.enunciado" %>" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
           <input type="hidden" name="survey_form[survey_fields_attributes][][survey_type_id]" value="1" />
+          <input type="hidden" name="survey_form[survey_fields_attributes][][order]" value="{{index}}" />
           {{#id}}
             <input type="hidden" name="survey_form[survey_fields_attributes][][id]" value="{{id}}" />
             <input type="hidden" id="field{{index}}_remove" name="survey_form[survey_fields_attributes][][_destroy]" value="0" />

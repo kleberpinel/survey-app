@@ -14,11 +14,18 @@
 		  <%= @survey_form.responses %>
 		</p>
 		<p>
-			<%- @survey_form.answers.each { |answer| %>
-				Pergunta: <%= answer.survey_field.title %> <br>
-				Resposta: <%= answer.label_answer %> <br>
-				Identifier: <%= answer.identifier %> <br>
-				 <br>
+			<%- @answer_group.map { |key, value| %>
+				<div class="panel panel-default" id="<%= key %>">
+				  <div class="panel-heading">Identificador: <i><%= key %></i></div>
+				  <div class="panel-body">
+				<%- @answer_group[key].each { |answer| %>
+					<b><%= answer.survey_field.title %></b><br>
+					Resposta: <%= answer.label_answer %> <br>
+					 <br>
+				<% } %>
+				
+			 		</div>
+				</div>
 			<% } %>
 		</p>
 

@@ -9,7 +9,11 @@ class SurveyFormsController < ApplicationController
   # GET /survey_forms
   # GET /survey_forms.json
   def index
-    @survey_forms = SurveyForm.all
+    if current_user.isAdmin
+      @survey_forms = SurveyForm.all
+    else 
+      @survey_forms = SurveyForm.where(:user => current_user)
+    end
   end
 
   # GET /survey_forms
@@ -33,6 +37,14 @@ class SurveyFormsController < ApplicationController
   end
 
   def report
+    @answer_group = {}
+    @survey_form.answers.each { |item|
+      if @answer_group[item.identifier] == nil
+        @answer_group[item.identifier] = Array.new
+      end
+      Rails.logger.debug "=----------- #{item.label_answer.inspect}"
+      @answer_group[item.identifier].push item
+    }
   end
 
   # POST /survey_forms

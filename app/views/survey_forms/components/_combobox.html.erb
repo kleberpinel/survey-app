@@ -31,6 +31,7 @@
         <div class="col-lg-10">
           <input type="text" id="enunciado_{{index}}" name="survey_form[survey_fields_attributes][][title]" class="form-control" placeholder="<%=t "app.enunciado" %>" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
           <input type="hidden" name="survey_form[survey_fields_attributes][][survey_type_id]" value="2" />
+          <input type="hidden" name="survey_form[survey_fields_attributes][][order]" value="{{index}}" />
           {{#id}}
             <input type="hidden" name="survey_form[survey_fields_attributes][][id]" value="{{id}}" />
             <input type="hidden" id="field{{index}}_remove" name="survey_form[survey_fields_attributes][][_destroy]" value="0" />
@@ -68,4 +69,35 @@
       <input type="hidden" name="survey_form[survey_fields_attributes][][survey_field_options_attributes][][value]" value="{{index}}" />
     </div>
   </div>
+</script>
+
+<script type="text/javascript">
+  function addValueComboBox(field,idFather){
+    valor = conterComboBox[field];
+    if(valor == undefined){
+      conterComboBox[field] = {index:1,father:idFather}
+    } else {
+      valor.index ++;
+      conterComboBox[field] = valor;
+    }
+    data = conterComboBox[field];
+    var template = $('#combobox_fields_Tpl').html();
+    var html = Mustache.to_html(template, data);
+    $("#" + field +  "_div").append(html);
+  }
+
+  function setValueComboBox(obj){
+    idItem = obj.id.split("_")[1];
+    idFather = obj.id.split("_")[2];  
+    if(obj.value == ""){
+      $("#cb_"+ idFather + "_pv option[value='"+idItem+"']").remove();
+    } else {
+      if($("#cb_"+ idFather + "_pv option[value='"+idItem+"']").length == 0){
+        $("#cb_"+ idFather + "_pv").append( new Option(obj.value,idItem));
+      } else {
+        $("#cb_"+ idFather + "_pv option[value='"+idItem+"']").text(obj.value);
+      } 
+    }
+    
+  }
 </script>
