@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20131025160444) do
     t.string   "identifier"
     t.integer  "survey_form_id"
     t.integer  "survey_field_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

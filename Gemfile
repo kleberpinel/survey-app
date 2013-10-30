@@ -17,6 +17,7 @@ gem "less-rails-bootstrap"
 gem "font-awesome-rails"
 gem 'mustache-js-rails'
 gem 'bootstrap-datepicker-rails'
+gem 'flot-rails', :git => "https://github.com/Kjarrigan/flot-rails.git"
 
 gem "breadcrumbs_on_rails"
 

@@ -27,10 +27,19 @@
 
 		<br>
 		<p>
-			<%- if current_user.isAdmin %>
-				<%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, users_path %>
+			
+			<%- if request[:returnTo] %>
+				<%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, request[:returnTo] %>
+			<% else %>
+				<%- if current_user.isAdmin %>
+					<%= link_to "<button class='btn btn-danger' type='button'>Voltar</button>".html_safe, users_path %>
+				<% end %>
 			<% end %>
-	        <%= link_to "<button class='btn btn btn-info' type='button'>Editar</button>".html_safe, edit_user_path(@user) %>
+			
+			<%- if current_user.isAdmin || current_user.id.to_s == params[:id]%>
+	        	<%= link_to "<button class='btn btn btn-info' type='button'>Editar</button>".html_safe, edit_user_path(@user) %>
+	        <%- end %>
+			
     	</p>
 	</div>
 </div>

@@ -38,13 +38,53 @@ class SurveyFormsController < ApplicationController
 
   def report
     @answer_group = {}
-    @survey_form.answers.each { |item|
-      if @answer_group[item.identifier] == nil
-        @answer_group[item.identifier] = Array.new
+    chart = {}
+    chart1 = {}
+    @pie_chart = {}
+
+    qtdRepostas = 0
+
+    @survey_form.survey_fields.each do |survey_field|
+      respostas = Answer.where(:survey_form => @survey_form, :survey_field => survey_field)
+      qtdRepostas = respostas.size
+
+      respostas.each do |resposta|
+        if @answer_group[resposta.identifier] == nil
+          @answer_group[resposta.identifier] = Array.new
+        end
+        @answer_group[resposta.identifier].push resposta
+
+        if chart[survey_field.title] == nil
+          chart[survey_field.title] = Array.new
+        end
+        chart[survey_field.title].push resposta.label_answer
       end
-      Rails.logger.debug "=----------- #{item.label_answer.inspect}"
-      @answer_group[item.identifier].push item
-    }
+    end
+
+    chart.map do | key, value |
+      if chart1[key] == nil
+         chart1[key] = {}
+      end
+
+      chart[key].each do | item |
+        if chart1[key][item] == nil
+          chart1[key][item] = 1
+        else 
+          chart1[key][item] = chart1[key][item] + 1
+        end
+        
+      end 
+    end
+    chart1.map do | key, value |
+
+      @pie_chart[key] = Array.new
+      chart1[key].map do | key1, value1 |
+        local = (chart1[key][key1] * 100) / qtdRepostas
+        @pie_chart[key].push JSON.parse('{"label": "'+key1[0,18]+'...",  "data":'+(local).to_s+'}')
+      end
+
+    end
+
   end
 
   # POST /survey_forms

@@ -6,6 +6,7 @@ class CreateAnswers < ActiveRecord::Migration
 	    	t.string :identifier
 	    	t.belongs_to :survey_form
 	    	t.belongs_to :survey_field
+	    	t.belongs_to :user
 
 	      	t.timestamps
 	    end

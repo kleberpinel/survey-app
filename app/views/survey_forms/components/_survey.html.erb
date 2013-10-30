@@ -43,7 +43,7 @@
             <% survey_field.survey_field_options.each { |radio| %>
            <div class="radio" id="radio_{{index}}_pv">
             <label>
-              <input type="radio" name="radio_<%= radio.survey_field.id %>" value="<%= radio.value %>"  onclick="setValueRadio(this.value, <%= radio.survey_field.id %>)"><label id="radio_<%= radio.survey_field.id %>_label"><%= radio.label %></label>
+              <input type="radio" name="radio_<%= radio.survey_field.id %>" value="<%= radio.value %>"  onclick="setValueRadio(this.value, <%= radio.survey_field.id %>)"><label id="radio_<%= radio.survey_field.id %>_label_<%= radio.value %>"><%= radio.label %></label>
             </label>
           </div> 
            <% } %>
@@ -54,6 +54,9 @@
           </div>
         </div>
     <% end %>
+    <% if user_signed_in? %>
+      <%= hidden_field_tag "survey_form[answers_attributes][][user_id]", current_user.id %>
+     <% end %>
 	<% end %>
 
   <%- if !preview %>
@@ -71,6 +74,6 @@
 <SCRIPT TYPE="text/javascript">
   function setValueRadio(value, id){
     $("#field_"+id+"_cb_value").val(value);
-    $("#field_"+id+"_cb_label").val($("#radio_"+id+"_label").html());
+    $("#field_"+id+"_cb_label").val($("#radio_"+id+"_label_"+value).html());
   }
 </SCRIPT>

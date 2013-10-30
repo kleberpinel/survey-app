@@ -1,8 +1,9 @@
 
 module ApplicationHelper
 
+	include Flot
+
 	def flash_class(level)
-		Rails.logger.debug "#{level}"
 	    case level
 	        when :notice then "alert alert-info"
 	        when :success then "alert alert-success"
@@ -12,8 +13,6 @@ module ApplicationHelper
 	end
 
 	def is_active?(page_name)
-		
-		Rails.logger.debug "#{params[:action]}"
 	  	"active" if params[:action] == page_name
 	end
 end

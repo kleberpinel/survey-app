@@ -33,7 +33,7 @@ class SurveyController < ApplicationController
   private
     def survey_form_params
       params.require(:survey_form).permit(:id, answers_attributes: [
-          :label_answer, :value_answer, :survey_field_id, :identifier
+          :label_answer, :value_answer, :survey_field_id, :identifier, :user_id
         ])
     end
 

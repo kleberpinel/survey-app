@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/Kjarrigan/flot-rails.git
+  revision: c20cf50084856963f8554c762dd44cbb4a156c97
+  specs:
+    flot-rails (0.0.4)
+      jquery-rails (>= 2.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -149,6 +156,7 @@ DEPENDENCIES
   breadcrumbs_on_rails
   coffee-rails (~> 4.0.0)
   devise (= 3.0.0.rc)
+  flot-rails!
   font-awesome-rails
   jbuilder (~> 1.2)
   jquery-rails

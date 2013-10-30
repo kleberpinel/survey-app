@@ -1,3 +1,11 @@
+<style type="text/css">
+
+	.demo-container {
+		position: relative;
+		height: 150px;
+	}
+</style>
+
 <div class="container"> 
 	<div class="well well-lg center" >
 		<% if flash[:notice] %>
@@ -13,15 +21,27 @@
 		  <strong>Respostas:</strong>
 		  <%= @survey_form.responses %>
 		</p>
+		
+		<%= render "/survey_forms/chart/pie"%>
+
 		<p>
 			<%- @answer_group.map { |key, value| %>
+				
 				<div class="panel panel-default" id="<%= key %>">
-				  <div class="panel-heading">Identificador: <i><%= key %></i></div>
+				  <div class="panel-heading" style="height: 40px">
+				  	<div class="col-md-8">Usuário: 
+				  		<% if @answer_group[key][0].user != nil %>
+				  			<%= link_to @answer_group[key][0].user.name, user_path(@answer_group[key][0].user, :returnTo => request.original_url), :style => "background-color: transparent; color: black" %>
+				  		<% else %>
+				  			Anonimo
+				  		<% end %>
+				  		</div>
+					<div class="col-md-4">Identificador: <i><%= key %></i></div>
+				  </div>
 				  <div class="panel-body">
 				<%- @answer_group[key].each { |answer| %>
 					<b><%= answer.survey_field.title %></b><br>
 					Resposta: <%= answer.label_answer %> <br>
-					 <br>
 				<% } %>
 				
 			 		</div>
