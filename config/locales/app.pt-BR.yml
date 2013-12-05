@@ -49,3 +49,5 @@ pt-BR:
         add_type_list: "Adicionar campo do tipo"
         user: "Solicitante"
         restrict: "Pesquisa restrita"
+        answers_value: 
+      answers: 

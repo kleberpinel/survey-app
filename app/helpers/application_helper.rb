@@ -2,6 +2,7 @@
 module ApplicationHelper
 
 	include Flot
+	include SurveyFieldsHelper
 
 	def flash_class(level)
 	    case level

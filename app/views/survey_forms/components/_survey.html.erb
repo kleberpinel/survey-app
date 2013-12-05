@@ -1,10 +1,14 @@
+
 <%= form_for(@survey_form, :url => survey_deliver_path(), :html => {:class => 'form-horizontal'}) do |f| %>
 	<% if @survey_form.errors.any? %>
     <div class="alert alert-danger">
       <h2>Problemas ao salvar suas respostas!</h2>
-       <% @survey_form.errors.full_messages.each do |msg| %>
-        <ul><%= msg %></ul>
-      <% end %>
+       <% 
+        if @survey_form.errors.get(:"answers.survey_field") != nil
+          @survey_form.errors.get(:"answers.survey_field").each do |msg| %>
+          <ul><%= msg %></ul>
+        <% end
+      end %>
     </div>
   <% end %>
   <h3><%= @survey_form.title %></h3>
@@ -14,31 +18,26 @@
   <%- @survey_form.survey_fields.each do | survey_field | %>
 		<%- if survey_field.survey_type_id == 1 %>
         <div class="form-group">
-          <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
+          <%= label survey_field.title, title(survey_field), :class => "col-lg-4  control-label"%>
           <div class="col-lg-5">
-           <%= text_field_tag "survey_form[answers_attributes][][value_answer]", "", :id=>"field_#{survey_field.id}_text", :onkeyup=> "$('#' + this.id +'_label').val(this.value)",:class =>  "form-control" %>
-           <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_text_label"%>
-           <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
-           <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
+           <%= text_field_tag "survey_form[answers_attributes][][value_answer]", value(survey_field), :id=>"field_#{survey_field.id}_text", :onkeyup=> "$('#value_survey_field_id_#{survey_field.id}').val(this.value)",:class =>  "form-control" %>
+           <%= hidden_field_tag "value_survey_field_id[#{survey_field.id}]", "" %>
           </div>
         </div>
 		<%- elsif survey_field.survey_type_id == 2 %>
 			<div class="form-group">
-          <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
+          <%= label survey_field.title, title(survey_field), :class => "col-lg-4  control-label"%>
           <div class="col-lg-5">
            
            <%= select_tag "survey_form[answers_attributes][][value_answer]",
             options_from_collection_for_select(survey_field.survey_field_options, "value","label"), 
             { :prompt=>"Selecione uma alternativa", :class =>  "form-control", :id=>"field_#{survey_field.id}_cb", :onChange => "$('#' + this.id +'_label').val(this.options[this.selectedIndex].innerHTML)" }%>
-           
-           <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_cb_label"%>
-           <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
-           <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
+        
           </div>
         </div>
     <%- elsif survey_field.survey_type_id == 3 %>
       <div class="form-group">
-          <%= label survey_field.title, survey_field.title, :class => "col-lg-4  control-label"%>
+          <%= label survey_field.title, title(survey_field), :class => "col-lg-4  control-label"%>
           <div class="col-lg-5">
             <% survey_field.survey_field_options.each { |radio| %>
            <div class="radio" id="radio_{{index}}_pv">
@@ -48,12 +47,15 @@
           </div> 
            <% } %>
            <%= hidden_field_tag "survey_form[answers_attributes][][value_answer]", "", :id=>"field_#{survey_field.id}_cb_value"%>
-           <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_cb_label"%>
-           <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
-           <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
+          
           </div>
         </div>
     <% end %>
+    
+    <%= hidden_field_tag "survey_form[answers_attributes][][label_answer]", "", :id=>"field_#{survey_field.id}_cb_label"%>
+    <%= hidden_field_tag "survey_form[answers_attributes][][survey_field_id]", survey_field.id %>
+    <%= hidden_field_tag "survey_form[answers_attributes][][identifier]", @identifier %>
+
     <% if user_signed_in? %>
       <%= hidden_field_tag "survey_form[answers_attributes][][user_id]", current_user.id %>
      <% end %>

@@ -10,8 +10,8 @@
             </div>
             <div class="panel-body">
               <div class="form-group">
-                <label class="col-lg-2 control-label" id="enunciado_{{index}}_pv" for="survey_form_Enunciado">{{title}}</label>
-                <div class="col-lg-10">
+                <label class="col-lg-2 control-label" id="enunciado_{{index}}_pv" for="survey_form_Enunciado">{{title}} {{#mandatory}}*{{/mandatory}}</label>
+                <div class="col-lg-9" >
                   <input type="text" class="form-control" id="cb_{{index}}_pv" />
                 </div>
               </div>
@@ -22,11 +22,21 @@
     </div>
     <div class="panel-body">
       <div class="form-group">
+        <label class="col-lg-2 control-label" id="mandatory_label" for="survey_form_Enunciado">Obrigatório?</label>
+        <div class="col-lg-10" id="radio_{{index}}_pv">
+            <div class="radio" id="radio_{{index}}_pv">
+                <label><input type="radio" name="mandatory_option_{{index}}" id="mandatory_option_{{index}}" onchange="setMandatory(this)" {{#mandatory}}checked="true"{{/mandatory}} value="true"><label id="radio_{{index}}_pv_label">Sim</label></label><br>
+                <label><input type="radio" name="mandatory_option_{{index}}" id="mandatory_option_{{index}}" onchange="setMandatory(this)" {{^mandatory}}checked="true"{{/mandatory}} value="false"><label id="radio_{{index}}_pv_label">Nao</label></label>
+            </div>
+        </div>
+      </div>
+      <div class="form-group">
         <label class="col-lg-2 control-label"><%=t "app.enunciado" %></label>
         <div class="col-lg-10">
           <input type="text" id="enunciado_{{index}}" name="survey_form[survey_fields_attributes][][title]" class="form-control" placeholder="<%=t "app.enunciado" %>" onFocusOut="changeEnunciado(this)" value="{{title}}"/>
           <input type="hidden" name="survey_form[survey_fields_attributes][][survey_type_id]" value="1" />
           <input type="hidden" name="survey_form[survey_fields_attributes][][order]" value="{{index}}" />
+          <input type="hidden" id="mandatory_option_{{index}}_val" name="survey_form[survey_fields_attributes][][mandatory]" value="{{#mandatory}}true{{/mandatory}}{{^mandatory}}false{{/mandatory}}" />
           {{#id}}
             <input type="hidden" name="survey_form[survey_fields_attributes][][id]" value="{{id}}" />
             <input type="hidden" id="field{{index}}_remove" name="survey_form[survey_fields_attributes][][_destroy]" value="0" />

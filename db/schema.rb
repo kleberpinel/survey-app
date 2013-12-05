@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20131025160444) do
   create_table "survey_fields", force: true do |t|
     t.string   "title"
     t.integer  "survey_type_id"
+    t.boolean  "mandatory"
     t.integer  "survey_form_id"
     t.datetime "created_at"
     t.datetime "updated_at"

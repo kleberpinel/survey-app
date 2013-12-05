@@ -140,7 +140,7 @@ class SurveyFormsController < ApplicationController
     def survey_form_params
       params.require(:survey_form).permit(:title, :requestor, :description, :restrict,
         survey_fields_attributes: 
-          [:title, :survey_type_id, :id, :_destroy, survey_field_options_attributes: 
+          [:title, :survey_type_id, :id, :_destroy, :mandatory, survey_field_options_attributes: 
             [:label, :value, :id]]
           )
     end

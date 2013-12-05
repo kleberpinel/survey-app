@@ -1,4 +1,4 @@
-<%= form_for(@survey_form, :html => {:class => 'form-horizontal'}) do |f| %>
+<%= form_for(@survey_form, :html => {:class => 'form-horizontal', :onsubmit => "return submit_form()"}) do |f| %>
   <% if @survey_form.errors.any? %>
     <div class="alert alert-danger">
       <h2>Problemas na solicitação!</h2>
@@ -56,6 +56,10 @@
   <% end %>
 
   <script type="text/javascript">
+
+    function submit_form(){
+      
+    }
     
     function addFieldType(value){
       data = {index:conter};
@@ -66,8 +70,8 @@
         $("#campos").append(html);
         $("#campos").show();
 
-        console.log($("#field"+conter).html())
-        $("#field"+conter).draggable();
+        // console.log($("#field"+conter).html())
+        // $("#field"+conter).draggable();
 
         $("#survey_form_type_list").val("");
         conter ++;
@@ -100,8 +104,28 @@
       $("#"+id).hide();
     }
 
+    function setMandatory(obj){
+
+      index = obj.id.split("_")[2];
+      enunciado = $("#enunciado_" + index + "_pv").html();
+
+      $("#"+obj.id + "_val").val(obj.value)
+      if(obj.value == 'true'){
+        $("#enunciado_" + index + "_pv").append("*");
+      } else {
+        $("#enunciado_" + index + "_pv").html(enunciado.substring(0,enunciado.length -1));
+      }
+    }
+
     function changeEnunciado(obj){
+      add_mandatory = false;
+      if(enunciado.indexOf("*") > -1 && enunciado.indexOf("*") == (enunciado.length -1)){
+        add_mandatory = true;
+      }
       $("#" + obj.id + "_pv").html(obj.value);
+      if(add_mandatory){
+        $("#enunciado_" + index + "_pv").append("*");
+      }
     }
   </script>
   

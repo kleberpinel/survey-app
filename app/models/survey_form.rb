@@ -9,13 +9,20 @@ class SurveyForm < ActiveRecord::Base
 	validates :description, presence: true
 
 	accepts_nested_attributes_for :survey_fields, reject_if: proc { |attributes| attributes['title'].blank? }, allow_destroy: true
-	accepts_nested_attributes_for :answers, reject_if: proc { |attributes| attributes['value_answer'] == "" }
+	accepts_nested_attributes_for :answers
 
-	def valid_answers?
-		Rails.logger.debug "valid_answers"
-		answers.each { |attributes| 
-			Rails.logger.debug "------------ #{attributes.inspect}"
-		}
-	end
+	# accepts_nested_attributes_for :answers, reject_if: :valid_answers? 
+
+	# def valid_answers?(attributes)
+
+ #      if attributes['value_answer'].blank?
+ #      	Rails.logger.debug "!!!!!!!! ERROR"
+ #      	errors[:base] << "can't be greater than total value"
+ #      	errors.add(:answers, "cannot contain the characters !@#%*()_-+=")
+ #      	self.errors.add :base, 'Please ensure that Interest field do not contain HTML(< and >) tags'
+ #      end
+
+ #      !attributes['value_answer'].blank?
+	# end
 
 end
